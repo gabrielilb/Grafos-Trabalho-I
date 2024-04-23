@@ -44,10 +44,19 @@ void Grafo::insere_aresta(Aresta e) {
     // if ((listas_adj_[e.v1][e.v2] == 0) && (e.v1 != e.v2)) {
     //     matriz_adj_[e.v1][e.v2] = 1;
     //     matriz_adj_[e.v2][e.v1] = 1;
+    // preciso fazer a verificação se a aresta já existe
+    for(int i : listas_adj_[e.v1]){
+        if (i == e.v2){
+            return; //Já existe aresta
+        }
 
-    listas_adj_.insert(std::vector<std::list<int>>,e.v1)
+    }
 
-         num_arestas_++;
+    // do contrário só inserir
+    listas_adj_[e.v1].insert(listas_adj_[e.v1].end(), e.v2); // incluindo na posição v1 o vértice v2
+    listas_adj_[e.v2].insert(listas_adj_[e.v2].end(), e.v1); // incluindo na posição v2 o vértice v1
+
+    num_arestas_++;
     // }
 }
 

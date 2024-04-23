@@ -7,28 +7,22 @@
 
 class Grafo {
 public:
-    /** Constroi um grafo simples que possui o numero de vertices recebido por
-     *  parametro e que nao possui arestas */
+
     Grafo(int num_vertices);
 
     int num_vertices();
     int num_arestas();
 
-    /** Insere uma aresta no grafo caso a aresta ainda nao exista no grafo e
-     * nao seja um laco */
     void insere_aresta(Aresta e);
-
-    /** Remove uma aresta do grafo caso a aresta exista no grafo */
     void remove_aresta(Aresta e);
 
-    void num_arestas(Aresta e);
     bool eh_clique();
-    bool existe_caminho_restrito();
+    bool existe_caminho_restrito(int v1, int v2, Aresta e, std::vector<int> &marcado);
     void imprime_graus();
 
     void imprime(); // depois a gente tira, soh pra fazer os testes e ver se tah dando boa
 
-    Grafo(); // Destrutor
+    ~Grafo(); // Destrutor
 
 private:
     int num_vertices_;
@@ -37,6 +31,8 @@ private:
 
     void valida_vertice(int v);
     void valida_aresta(Aresta e);
+    void busca_profundidade(int v, std::vector<int> &marcado); //vai acessar apenas a partir de outros métodos, não precisa ser public
+
 };
 
 #endif 

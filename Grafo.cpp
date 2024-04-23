@@ -21,6 +21,13 @@ Grafo::Grafo(int num_vertices) {
     listas_adj_.resize(num_vertices); // a lista já vai possuir o número de vértices
 }
 
+Grafo::~Grafo(){
+    for(auto& lista : listas_adj_){
+        lista.clear();
+    }
+    listas_adj_.clear();
+}
+
 int Grafo::num_vertices() {
     return num_vertices_;
 }
@@ -43,15 +50,12 @@ void Grafo::insere_aresta(Aresta e) {
         if (i == e.v2){
             return; //Já existe aresta
         }
-
     }
-
     // do contrário só inserir
     listas_adj_[e.v1].insert(listas_adj_[e.v1].end(), e.v2); // incluindo na posição v1 o vértice v2
     listas_adj_[e.v2].insert(listas_adj_[e.v2].end(), e.v1); // incluindo na posição v2 o vértice v1
 
     num_arestas_++;
-    // }
 }
 
 void Grafo::remove_aresta(Aresta e) {
@@ -87,6 +91,54 @@ void Grafo::imprime(){
             cout << " -> " << *l;
             cout << endl;
         }
+    }
+}
+
+bool Grafo::eh_clique(){
+    for (int i = 0; i < num_vertices_; ++i) {
+        for (int j = i + 1; j < num_vertices_; ++j) {
+            if (find(listas_adj_[i].begin(), listas_adj_[i].end(), j) == listas_adj_[i].end()) // Verifica se há uma aresta entre cada par de vértices
+                return false;
+        }
+    }
+    for (int i = 0; i < num_vertices_; ++i) {
+        vector<int> marcado(num_vertices_, 0);
+        busca_profundidade(i, marcado);
+        if (find(marcado.begin(), marcado.end(), 0) != marcado.end()) // Verifica se todos os vértices são alcançáveis a partir de i
+            return false;
+    }
+    return true;
+}
+
+void Grafo::busca_profundidade(int v, vector<int> &marcado){
+    marcado[v] = 1;
+    for(int u : listas_adj_[v]){
+        if(marcado[u] == 0)
+            busca_profundidade(u, marcado);
+    }
+}
+
+bool Grafo::existe_caminho_restrito(int vertice_o, int vertice_d, Aresta e, vector<int> &marcado){
+    valida_vertice(vertice_o);
+    valida_vertice(vertice_d);
+    //Testar esse método melhor
+    marcado[vertice_o] = 1;
+
+    if(vertice_o == vertice_d)
+        return true;
+
+    for(auto j : listas_adj_[vertice_o]){
+        if (j != vertice_d && !(vertice_o == e.v1 && j == e.v2) && !(vertice_o == e.v2 && j == e.v1))
+            if (marcado[j] == 0)
+                if (existe_caminho_restrito(j, vertice_d, e, marcado))
+                    return true;
+    }
+    return false;   
+}
+
+void Grafo::imprime_graus(){
+    for (int i = 0; i < num_vertices_; i++){
+        cout <<" Grau do vertice "<< i << ":" << listas_adj_[i].size() << endl;
     }
 }
 

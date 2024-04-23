@@ -13,4 +13,4 @@ public:
     std::string to_string();
 };
 
-#endif /* ARESTA_H */
+#endif

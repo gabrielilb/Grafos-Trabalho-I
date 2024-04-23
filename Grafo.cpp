@@ -118,7 +118,7 @@ void Grafo::busca_profundidade(int v, vector<int> &marcado){
     }
 }
 
-bool Grafo::existe_caminho_restrito(int vertice_o, int vertice_d, Aresta e, vector<int> &marcado){
+bool Grafo::existe_caminho_restrito(int vertice_o, int vertice_d, Aresta e, vector<int> marcado){
     valida_vertice(vertice_o);
     valida_vertice(vertice_d);
     //Testar esse método melhor

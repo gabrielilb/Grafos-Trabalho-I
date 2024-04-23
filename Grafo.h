@@ -17,7 +17,7 @@ public:
     void remove_aresta(Aresta e);
 
     bool eh_clique();
-    bool existe_caminho_restrito(int v1, int v2, Aresta e, std::vector<int> &marcado);
+    bool existe_caminho_restrito(int v1, int v2, Aresta e, std::vector<int> marcado);
     void imprime_graus();
 
     void imprime(); // depois a gente tira, soh pra fazer os testes e ver se tah dando boa

@@ -17,6 +17,10 @@ void print_exception(const exception &e, int level = 0) {
 
 int main() {
     try {
+
+        cerr << "Testando a commit" << "\n";
+
+
         Grafo g(4);
 
         g.insere_aresta(Aresta(0, 2));
@@ -25,7 +29,6 @@ int main() {
         g.insere_aresta(Aresta(5, 1));
         g.insere_aresta(Aresta(0, 4));
 
-        g.imprime();
     }
     catch (const exception &e) {
         print_exception(e);

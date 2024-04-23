@@ -1,5 +1,4 @@
 #ifndef ARESTA_H
-
 #define ARESTA_H
 
 #include <string>

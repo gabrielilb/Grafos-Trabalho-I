@@ -1,5 +1,4 @@
 #ifndef GRAFO_H
-
 #define GRAFO_H
 
 #include "Aresta.h"
@@ -22,7 +21,13 @@ public:
     /** Remove uma aresta do grafo caso a aresta exista no grafo */
     void remove_aresta(Aresta e);
 
-    void imprime();
+    void num_arestas(Aresta e);
+    bool eh_clique();
+    bool existe_caminho_restrito();
+    void imprime_graus();
+
+    ~Grafo(); // Destrutor
+
 private:
     int num_vertices_;
     int num_arestas_;
@@ -32,4 +37,4 @@ private:
     void valida_aresta(Aresta e);
 };
 
-#endif /* GRAFO_H */
+#endif 

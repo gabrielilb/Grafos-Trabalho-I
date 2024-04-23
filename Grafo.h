@@ -26,7 +26,9 @@ public:
     bool existe_caminho_restrito();
     void imprime_graus();
 
-    ~Grafo(); // Destrutor
+    void imprime(); // depois a gente tira, soh pra fazer os testes e ver se tah dando boa
+
+    Grafo(); // Destrutor
 
 private:
     int num_vertices_;

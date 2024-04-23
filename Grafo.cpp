@@ -18,10 +18,7 @@ Grafo::Grafo(int num_vertices) {
     num_vertices_ = num_vertices;
     num_arestas_ = 0;
 
-    listas_adj_.resize(num_vertices); // a lista já vai possuir o número de vértices, não precisa do for (só pra matriz)
-    // for (int i = 0; i < num_vertices; i++) { // ou i < matriz_adj_.size()
-    //     listas_adj_[i].resize(num_vertices, 0);
-    // }
+    listas_adj_.resize(num_vertices); // a lista já vai possuir o número de vértices
 }
 
 int Grafo::num_vertices() {
@@ -41,11 +38,8 @@ void Grafo::insere_aresta(Aresta e) {
             "invalida!"));
     }
 
-    // if ((listas_adj_[e.v1][e.v2] == 0) && (e.v1 != e.v2)) {
-    //     matriz_adj_[e.v1][e.v2] = 1;
-    //     matriz_adj_[e.v2][e.v1] = 1;
     // preciso fazer a verificação se a aresta já existe
-    for(int i : listas_adj_[e.v1]){
+    for(auto i : listas_adj_[e.v1]){
         if (i == e.v2){
             return; //Já existe aresta
         }
@@ -69,27 +63,32 @@ void Grafo::remove_aresta(Aresta e) {
             "invalida!"));
     }
 
-    
+    auto i = find(listas_adj_[e.v1].begin(), listas_adj_[e.v1].end(), e.v2);
+    if(i != listas_adj_[e.v1].end()){
+        listas_adj_[e.v1].erase(i);
+    } else{
+        cout << "\nA aresta nao existe\n";
+        return;
+    }
 
-    // if (matriz_adj_[e.v1][e.v2] != 0) {
-    //     matriz_adj_[e.v1][e.v2] = 0;
-    //     matriz_adj_[e.v2][e.v1] = 0;
+    auto j = find(listas_adj_[e.v2].begin(), listas_adj_[e.v2].end(), e.v1);
+    if(j != listas_adj_[e.v2].end()){
+        listas_adj_[e.v2].erase(j);
+    }
 
-    //     num_arestas_--;
-    // }
+    num_arestas_--;
 }
 
-// void Grafo::imprime() {
-//     for (int v = 0; v < num_vertices_; v++) { // ou v < matriz_adj_.size()
-//         cout << v << ":";
-//         for (int u = 0; u < num_vertices_; u++) { // ou u < matriz_adj_.size()
-//             if (matriz_adj_[v][u] != 0) {
-//                 cout << " " << u;
-//             }
-//         }
-//         cout << "\n";
-//     }
-// }
+void Grafo::imprime(){
+    for(int k = 0; k < listas_adj_.size(); k++){
+        cout << "Lista de adjacencias do vertice " << k << endl;
+        cout << "Cabeca";
+        for (auto l = listas_adj_[k].begin(); l!= listas_adj_[k].end(); l++){
+            cout << " -> " << *l;
+            cout << endl;
+        }
+    }
+}
 
 void Grafo::valida_vertice(int v) {
     if ((v < 0) || (v >= num_vertices_)) {

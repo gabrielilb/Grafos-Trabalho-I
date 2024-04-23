@@ -21,13 +21,20 @@ int main() {
         cerr << "Testando a commit" << "\n";
 
 
-        Grafo g(4);
+        Grafo g(10);
 
         g.insere_aresta(Aresta(0, 2));
-        g.insere_aresta(Aresta(-1, -2));
+        g.insere_aresta(Aresta(1, 2));
         g.insere_aresta(Aresta(5, 7));
         g.insere_aresta(Aresta(5, 1));
         g.insere_aresta(Aresta(0, 4));
+        g.insere_aresta(Aresta(0, 2));
+
+        g.imprime();
+
+        g.remove_aresta(Aresta(0,2));
+        cout << "\nREMOVENDO ARESTA\n\n";
+        g.imprime();
 
     }
     catch (const exception &e) {

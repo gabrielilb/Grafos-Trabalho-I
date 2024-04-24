@@ -16,7 +16,7 @@ public:
     void insere_aresta(Aresta e);
     void remove_aresta(Aresta e);
 
-    bool eh_clique();
+    bool eh_clique(std::vector<int> vertices_clique);
     bool existe_caminho_restrito(int v1, int v2, Aresta e, std::vector<int> marcado);
     void imprime_graus();
 

@@ -38,6 +38,10 @@ int Grafo::num_arestas() {
 
 void Grafo::insere_aresta(Aresta e) {
     // preciso fazer a verificação se a aresta já existe
+    if (e.v1 == e.v2){
+        return; // os vertices sao iguais
+    }
+    
     for(auto i : listas_adj_[e.v1]){
         if (i == e.v2){
             return; //Já existe aresta
@@ -56,7 +60,6 @@ void Grafo::remove_aresta(Aresta e) {
     if(i != listas_adj_[e.v1].end()){
         listas_adj_[e.v1].erase(i);
     } else{
-        cout << "\nA aresta nao existe\n";
         return;
     }
 
@@ -79,20 +82,36 @@ void Grafo::imprime(){
     }
 }
 
-bool Grafo::eh_clique(){
-    for (int i = 0; i < num_vertices_; ++i) {
-        for (int j = i + 1; j < num_vertices_; ++j) {
-            if (find(listas_adj_[i].begin(), listas_adj_[i].end(), j) == listas_adj_[i].end()) // Verifica se há uma aresta entre cada par de vértices
-                return false;
+// bool Grafo::eh_clique(){
+//     for (int i = 0; i < num_vertices_; ++i) {
+//         for (int j = i + 1; j < num_vertices_; ++j) {
+//             if (find(listas_adj_[i].begin(), listas_adj_[i].end(), j) == listas_adj_[i].end()) // Verifica se há uma aresta entre cada par de vértices
+//                 return false;
+//         }
+//     }
+//     for (int i = 0; i < num_vertices_; ++i) {
+//         vector<int> marcado(num_vertices_, 0);
+//         busca_profundidade(i, marcado);
+//         if (find(marcado.begin(), marcado.end(), 0) != marcado.end()) // Verifica se todos os vértices são alcançáveis a partir de i
+//             return false;
+//     }
+//     return true;
+// }
+
+bool Grafo::eh_clique(vector<int> vertices_clique){
+    int num_max_arestas = (vertices_clique.size()*(vertices_clique.size()-1));    //n(n − 1)
+    int contador = 0;
+    for (auto u : vertices_clique){
+        for (auto v : listas_adj_[u]){
+            if(find(vertices_clique.begin(), vertices_clique.end(), v) != vertices_clique.end())
+                contador++;
         }
     }
-    for (int i = 0; i < num_vertices_; ++i) {
-        vector<int> marcado(num_vertices_, 0);
-        busca_profundidade(i, marcado);
-        if (find(marcado.begin(), marcado.end(), 0) != marcado.end()) // Verifica se todos os vértices são alcançáveis a partir de i
-            return false;
-    }
-    return true;
+    if (num_max_arestas == contador)
+        return true;
+    
+    return false;
+
 }
 
 void Grafo::busca_profundidade(int v, vector<int> &marcado){

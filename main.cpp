@@ -27,11 +27,29 @@ int main() {
             cin >> num_aresta1 >> num_aresta2;
             g.remove_aresta(Aresta(num_aresta1,num_aresta2));
         } else if(opcao == 'E'){
-            cout << g.num_arestas();
+            cout << g.num_arestas() << "\n";
         } else if(opcao == 'Q'){
-            // g.eh_clique();
+            int N, novo_vertice;
+            cin >> N;
+            vector<int> vertices_clique;
+            for(int i = 0; i < N; i++){
+                cin >> novo_vertice;
+                vertices_clique.push_back(novo_vertice);
+            }
+            g.eh_clique(vertices_clique);
+            if(g.eh_clique(vertices_clique)){
+                cout << "SIM\n";
+            } else{
+                cout << "NAO\n";
+            }
         } else if(opcao == 'C'){
-            // g.existe_caminho_restrito();
+            int v1, v2, r1, r2;
+            cin >> v1 >> v2 >> r1 >> r2;
+            if(g.existe_caminho_restrito(v1, v2, Aresta(r1, r2), vector<int>(g.num_vertices()))){
+                cout << "SIM\n";
+            } else{
+                cout << "NAO\n";
+            }
         } else if(opcao == 'G'){
             g.imprime_graus();
         }

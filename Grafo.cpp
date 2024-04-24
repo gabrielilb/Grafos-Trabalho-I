@@ -37,14 +37,6 @@ int Grafo::num_arestas() {
 }
 
 void Grafo::insere_aresta(Aresta e) {
-    try {
-        valida_aresta(e);
-    } catch (...) {
-        throw_with_nested(runtime_error("Erro na operacao "
-            "insere_aresta(Aresta): a aresta " + e.to_string() + " eh "
-            "invalida!"));
-    }
-
     // preciso fazer a verificação se a aresta já existe
     for(auto i : listas_adj_[e.v1]){
         if (i == e.v2){
@@ -59,13 +51,6 @@ void Grafo::insere_aresta(Aresta e) {
 }
 
 void Grafo::remove_aresta(Aresta e) {
-    try {
-        valida_aresta(e);
-    } catch (...) {
-        throw_with_nested(runtime_error("Erro na operacao "
-            "remove_aresta(Aresta): a aresta " + e.to_string() + " eh "
-            "invalida!"));
-    }
 
     auto i = find(listas_adj_[e.v1].begin(), listas_adj_[e.v1].end(), e.v2);
     if(i != listas_adj_[e.v1].end()){

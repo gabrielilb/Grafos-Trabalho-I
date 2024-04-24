@@ -21,13 +21,6 @@ Grafo::Grafo(int num_vertices) {
     listas_adj_.resize(num_vertices); // a lista já vai possuir o número de vértices
 }
 
-Grafo::~Grafo(){
-    for(auto& lista : listas_adj_){
-        lista.clear();
-    }
-    listas_adj_.clear();
-}
-
 int Grafo::num_vertices() {
     return num_vertices_;
 }
@@ -71,31 +64,15 @@ void Grafo::remove_aresta(Aresta e) {
     num_arestas_--;
 }
 
-void Grafo::imprime(){
-    for(int k = 0; k < listas_adj_.size(); k++){
-        cout << "Lista de adjacencias do vertice " << k << endl;
-        cout << "Cabeca";
-        for (auto l = listas_adj_[k].begin(); l!= listas_adj_[k].end(); l++){
-            cout << " -> " << *l;
-            cout << endl;
-        }
-    }
-}
-
-// bool Grafo::eh_clique(){
-//     for (int i = 0; i < num_vertices_; ++i) {
-//         for (int j = i + 1; j < num_vertices_; ++j) {
-//             if (find(listas_adj_[i].begin(), listas_adj_[i].end(), j) == listas_adj_[i].end()) // Verifica se há uma aresta entre cada par de vértices
-//                 return false;
+// void Grafo::imprime(){
+//     for(int k = 0; k < listas_adj_.size(); k++){
+//         cout << "Lista de adjacencias do vertice " << k << endl;
+//         cout << "Cabeca";
+//         for (auto l = listas_adj_[k].begin(); l!= listas_adj_[k].end(); l++){
+//             cout << " -> " << *l;
+//             cout << endl;
 //         }
 //     }
-//     for (int i = 0; i < num_vertices_; ++i) {
-//         vector<int> marcado(num_vertices_, 0);
-//         busca_profundidade(i, marcado);
-//         if (find(marcado.begin(), marcado.end(), 0) != marcado.end()) // Verifica se todos os vértices são alcançáveis a partir de i
-//             return false;
-//     }
-//     return true;
 // }
 
 bool Grafo::eh_clique(vector<int> vertices_clique){
@@ -132,7 +109,7 @@ bool Grafo::existe_caminho_restrito(int vertice_o, int vertice_d, Aresta e, vect
         return true;
 
     for(int j : listas_adj_[vertice_o]){
-        if (j != vertice_d && !(vertice_o == e.v1 && j == e.v2) || !(vertice_o == e.v2 && j == e.v1))
+        if (!((vertice_o == e.v1 && j == e.v2) || (vertice_o == e.v2 && j == e.v1)))
             if (marcado[j] == 0)
                 if (existe_caminho_restrito(j, vertice_d, e, marcado))
                     return true;

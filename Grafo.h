@@ -20,10 +20,6 @@ public:
     bool existe_caminho_restrito(int v1, int v2, Aresta e, std::vector<int> marcado);
     void imprime_graus();
 
-    void imprime(); // depois a gente tira, soh pra fazer os testes e ver se tah dando boa
-
-    ~Grafo(); // Destrutor
-
 private:
     int num_vertices_;
     int num_arestas_;
@@ -31,7 +27,7 @@ private:
 
     void valida_vertice(int v);
     void valida_aresta(Aresta e);
-    void busca_profundidade(int v, std::vector<int> &marcado); //vai acessar apenas a partir de outros métodos, não precisa ser public
+    void busca_profundidade(int v, std::vector<int> &marcado);
 
 };
 

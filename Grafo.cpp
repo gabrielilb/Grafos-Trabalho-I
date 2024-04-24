@@ -121,14 +121,14 @@ void Grafo::busca_profundidade(int v, vector<int> &marcado){
 bool Grafo::existe_caminho_restrito(int vertice_o, int vertice_d, Aresta e, vector<int> marcado){
     valida_vertice(vertice_o);
     valida_vertice(vertice_d);
-    //Testar esse método melhor
+
     marcado[vertice_o] = 1;
 
     if(vertice_o == vertice_d)
         return true;
 
-    for(auto j : listas_adj_[vertice_o]){
-        if (j != vertice_d && !(vertice_o == e.v1 && j == e.v2) && !(vertice_o == e.v2 && j == e.v1))
+    for(int j : listas_adj_[vertice_o]){
+        if (j != vertice_d && !(vertice_o == e.v1 && j == e.v2) || !(vertice_o == e.v2 && j == e.v1))
             if (marcado[j] == 0)
                 if (existe_caminho_restrito(j, vertice_d, e, marcado))
                     return true;
@@ -138,7 +138,7 @@ bool Grafo::existe_caminho_restrito(int vertice_o, int vertice_d, Aresta e, vect
 
 void Grafo::imprime_graus(){
     for (int i = 0; i < num_vertices_; i++){
-        cout <<" Grau do vertice "<< i << ":" << listas_adj_[i].size() << endl;
+        cout << i << ": " << listas_adj_[i].size() << endl;
     }
 }
 

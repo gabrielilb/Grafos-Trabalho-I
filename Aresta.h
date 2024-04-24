@@ -10,7 +10,6 @@ public:
 
     Aresta(int v1, int v2);
 
-    std::string to_string();
 };
 
 #endif

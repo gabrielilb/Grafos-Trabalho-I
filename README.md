@@ -4,6 +4,6 @@ Projeto desenvolvido para a disciplina de Grafos do 6º semestre do curso de Ci�
 
 Linguagem de programação: C++
 
-Ano: 2023
+Ano: 2024
 
 Alunas: Gabrieli Loeblein Brutscher e Milena Ceolin
